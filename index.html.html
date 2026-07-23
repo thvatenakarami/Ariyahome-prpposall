@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پروپوزال دیجیتال آریاهوم | Atena Karami</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,600&family=DM+Serif+Display:ital@1&family=Parisienne&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-deep:#0F2C33;
+  --teal-mid:#1C4A52;
+  --teal-glow:#2C6B70;
+  --copper:#C17A4F;
+  --copper-light:#E3A876;
+  --copper-dark:#8B5E3C;
+  --brick:#B05C38;
+  --cream:#F4EBDD;
+  --cream-soft:#FBF6EE;
+  --ink:#12201F;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;width:100%;}
+body{font-family:'Vazirmatn',sans-serif;background:var(--ink);color:var(--ink);}
+::selection{background:var(--copper);color:var(--cream-soft);}
+
+/* ===== PROGRESS LINE ===== */
+.progress-line{
+  position:fixed;top:0;left:0;right:0;height:3px;
+  background:rgba(244,235,221,.08);z-index:200;
+}
+.progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--copper-dark),var(--copper-light));
+  transition:width .5s cubic-bezier(.2,.8,.2,1);
+}
+.page-counter{
+  position:fixed;top:14px;right:20px;z-index:201;
+  display:flex;align-items:center;gap:8px;
+  font-family:'Vazirmatn',sans-serif;
+  font-size:11px;letter-spacing:1px;font-weight:600;
+  color:rgba(244,235,221,.55);
+  background:rgba(10,28,34,.4);backdrop-filter:blur(10px);
+  padding:6px 12px;border-radius:20px;
+  border:1px solid rgba(244,235,221,.12);
+  pointer-events:none;
+}
+.page-counter .cur{color:var(--copper-light);font-size:12.5px;}
+.page-counter .sep{opacity:.4;}
+[data-theme-active="light"] .page-counter{
+  color:rgba(18,32,31,.55);
+  background:rgba(244,235,221,.55);
+  border-color:rgba(18,32,31,.1);
+}
+[data-theme-active="light"] .page-counter .cur{color:var(--brick);}
+@media(max-width:480px){
+  .page-counter{top:10px;right:12px;font-size:10px;padding:5px 10px;}
+  .page-counter .cur{font-size:11.5px;}
+}
+
+/* ===== STAGE ===== */
+.stage{position:relative;height:100vh;height:100dvh;width:100vw;overflow:hidden;}
+
+/* ===== PAGES ===== */
+.page{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:flex-start;
+  padding:12vh 8vw 16vh;
+  opacity:0;visibility:hidden;transform:translateY(20px);
+  transition:opacity .55s ease,transform .6s ease,visibility .55s;
+  overflow-y:auto;overflow-x:hidden;
+}
+.page.active{opacity:1;visibility:visible;transform:translateY(0);}
+.page-dark{background:linear-gradient(150deg,var(--teal-deep) 0%,#0A1F24 100%);color:var(--cream-soft);}
+.page-light{background:var(--cream-soft);color:var(--ink);}
+
+/* ===== HERO PAGE ===== */
+.hero-page{
+  position:relative;color:var(--cream-soft);
+  justify-content:flex-end;align-items:flex-start;
+  padding-bottom:18vh;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  width:100%;height:100%;
+  background-image:url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ95ax9N9JA2sfAPjfilM5ciW93FuR6_1xmoVWWTbkCw&s=10');
+  background-size:cover;background-position:center center;
+  animation:kenburns 22s ease-in-out infinite alternate;
+  z-index:0;
+}
+.hero-overlay{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(170deg,rgba(10,31,36,.55) 0%,rgba(15,44,51,.65) 40%,rgba(10,28,34,.92) 100%);
+  z-index:1;
+}
+@keyframes kenburns{
+  from{transform:scale(1) translate(0,0);}
+  to{transform:scale(1.1) translate(-1%,-1%);}
+}
+.hero-content{position:relative;z-index:2;max-width:900px;}
+.hero-eyebrow{
+  font-size:12px;letter-spacing:4px;font-weight:700;
+  color:var(--copper-light);margin-bottom:22px;display:block;
+}
+.hero-page h1{
+  font-family:'Vazirmatn',sans-serif;
+  font-size:clamp(28px,4.8vw,60px);font-weight:300;
+  line-height:1.35;color:#fff;margin-bottom:20px;
+  letter-spacing:-0.5px;
+}
+.hero-page h1 strong{font-weight:800;}
+.hero-sub{
+  font-size:clamp(14px,1.6vw,17px);
+  color:rgba(244,235,221,.9);line-height:2;
+  max-width:580px;font-weight:400;
+}
+.hero-line{
+  width:50px;height:2px;
+  background:linear-gradient(90deg,var(--copper),transparent);
+  margin:22px 0;
+}
+.hero-meta{display:flex;gap:36px;flex-wrap:wrap;margin-top:28px;}
+.hero-meta-item .lbl{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.5px;margin-bottom:4px;}
+.hero-meta-item .val{font-size:13px;font-weight:600;color:#fff;}
+
+/* ===== SECTION HEADERS ===== */
+.eyebrow{
+  font-size:11px;letter-spacing:4px;font-weight:700;
+  color:var(--copper);margin-bottom:14px;display:block;
+}
+.page-dark .eyebrow{color:var(--copper-light);}
+h2.title{
+  font-family:'Vazirmatn',sans-serif;
+  font-size:clamp(22px,3.2vw,40px);font-weight:300;
+  line-height:1.4;margin-bottom:10px;
+}
+h2.title strong{font-weight:800;}
+.title-line{width:40px;height:2px;background:var(--copper);border-radius:2px;margin-bottom:30px;}
+.page-dark .title-line{background:var(--copper-light);}
+p.lead{font-size:clamp(14px,1.4vw,16.5px);line-height:2;max-width:680px;font-weight:400;opacity:.88;}
+
+/* ===== PAGE 01 — WHY ===== */
+.p01-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:start;margin-top:10px;}
+.p01-cards{display:flex;flex-direction:column;gap:14px;}
+.intro-card{
+  background:rgba(244,235,221,.06);border:1px solid rgba(193,122,79,.3);
+  border-radius:6px;padding:24px 22px;
+  transition:transform .35s,background .35s,border-color .35s;
+}
+.intro-card:hover{transform:translateX(-6px);background:rgba(244,235,221,.1);border-color:rgba(227,168,118,.6);}
+.intro-card .num{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:28px;color:var(--copper-light);line-height:1;margin-bottom:10px;display:block;
+}
+.intro-card h3{font-size:16px;font-weight:700;margin-bottom:8px;}
+.intro-card p{font-size:13px;line-height:1.85;opacity:.8;font-weight:300;}
+
+.p01-imgs{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:180px 180px;gap:10px;}
+.p01-img{
+  border-radius:8px;overflow:hidden;position:relative;cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+  transition:transform .4s cubic-bezier(.2,.8,.2,1);
+}
+.p01-img:first-child{grid-row:1/3;grid-column:1/2;}
+.p01-img:hover{transform:scale(1.02);}
+.p01-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .4s;}
+.p01-img:hover img{transform:scale(1.08);filter:brightness(1.05);}
+.p01-img::after{
+  content:attr(data-label);position:absolute;right:0;bottom:0;left:0;
+  padding:10px 12px 9px;font-size:11.5px;font-weight:600;color:#fff;
+  background:linear-gradient(0deg,rgba(15,44,51,.9),rgba(15,44,51,0));
+}
+
+/* ===== PAGE 02 — STRATEGY ===== */
+.strategy-wrap{margin-top:16px;max-width:820px;}
+.strategy-block{
+  background:linear-gradient(135deg,rgba(12,38,45,.9),rgba(28,74,82,.85));
+  color:var(--cream-soft);border-radius:8px;padding:38px 36px;
+  border:1px solid rgba(193,122,79,.25);
+  position:relative;overflow:hidden;
+}
+.strategy-block::before{
+  content:"";position:absolute;top:-60px;left:-60px;
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(193,122,79,.3),transparent 70%);
+}
+.strategy-block h3{
+  font-family:'Vazirmatn',sans-serif;font-size:20px;font-weight:300;
+  margin-bottom:16px;position:relative;
+}
+.strategy-block h3 strong{font-weight:800;}
+.strategy-block p{font-size:14px;line-height:2.1;opacity:.88;position:relative;max-width:700px;}
+.strategy-block .tag{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:20px;font-size:12px;color:var(--copper-light);
+  border:1px solid rgba(193,122,79,.4);padding:8px 18px;border-radius:30px;
+  position:relative;font-weight:600;
+}
+.strategy-block .tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--copper-light);}
+.strategy-note{
+  margin-top:18px;padding:18px 22px;
+  background:rgba(193,122,79,.08);border-right:3px solid var(--copper);
+  border-radius:0 8px 8px 0;font-size:13.5px;color:var(--ink);
+  line-height:1.9;font-weight:400;
+}
+
+/* ===== PRODUCTS SHOWCASE PAGE ===== */
+.products-page .page-title{max-width:700px;margin-bottom:16px;}
+.products-page .eyebrow,.products-page .page-title,.products-page .products-intro,.products-page .prod-card-info h4,.products-page .prod-card-info p{
+  font-family:Tahoma,'Vazirmatn',sans-serif;
+}
+.products-intro{font-size:18px;color:rgba(244,235,221,.75);line-height:1.9;max-width:700px;margin-bottom:30px;}
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;margin-top:6px;
+}
+.prod-card{
+  border-radius:10px;overflow:hidden;
+  box-shadow:0 10px 26px rgba(0,0,0,.3);
+  transition:transform .4s cubic-bezier(.2,.8,.2,1);
+  display:flex;flex-direction:column;height:100%;
+}
+.prod-card:hover{transform:translateY(-6px);}
+.prod-card .prod-img-wrap{flex:1 1 50%;min-height:150px;overflow:hidden;}
+.prod-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s,filter .4s;}
+.prod-card:hover img{transform:scale(1.08);filter:brightness(1.05);}
+.prod-card-info{padding:14px 4px 4px;flex:1 1 50%;display:flex;flex-direction:column;justify-content:center;}
+.prod-card-info h4{font-size:13.5px;font-weight:700;color:#fff;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.prod-card-info h4::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--copper-light);flex-shrink:0;}
+.prod-card-info p{font-size:11.5px;line-height:1.75;color:rgba(244,235,221,.6);}
+@media(max-width:900px){ .products-grid{grid-template-columns:repeat(2,1fr);} }
+@media(max-width:560px){ .products-grid{grid-template-columns:1fr;} }
+
+/* ===== SERVICES PAGE ===== */
+.services-page .eyebrow,.services-page h2.title,.services-page .services-intro,.services-page .svc-body h4,.services-page .svc-body p,.services-page .svc-meta-row .mk,.services-page .svc-meta-row .mv,.services-page .services-note{
+  font-family:Tahoma,'Vazirmatn',sans-serif;
+}
+.services-intro{font-size:14px;color:rgba(244,235,221,.7);line-height:1.9;margin-bottom:24px;max-width:640px;}
+.services-list-sel{display:flex;flex-direction:column;gap:10px;max-width:860px;}
+.svc-sel{
+  display:grid;grid-template-columns:34px 42px 1fr 220px;
+  gap:16px;align-items:center;
+  padding:18px 22px;border-radius:8px;
+  border:1px solid rgba(244,235,221,.1);
+  background:rgba(244,235,221,.04);
+  cursor:pointer;
+  transition:all .3s cubic-bezier(.2,.8,.2,1);
+  user-select:none;
+}
+.svc-sel:hover{background:rgba(244,235,221,.08);border-color:rgba(193,122,79,.3);transform:translateX(-4px);}
+.svc-sel.selected{
+  background:rgba(176,92,56,.15);
+  border-color:rgba(176,92,56,.7);
+  transform:translateX(-4px);
+}
+.svc-sel.selected .svc-num{color:var(--copper-light);}
+.svc-num{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:26px;color:rgba(244,235,221,.3);line-height:1;
+  transition:color .3s;
+}
+.svc-body h4{font-size:15px;font-weight:700;margin-bottom:5px;}
+.svc-body p{font-size:12.5px;opacity:.65;line-height:1.7;max-width:400px;}
+.svc-meta{text-align:left;border-right:1px solid rgba(244,235,221,.1);padding-right:20px;display:flex;flex-direction:column;gap:6px;}
+.svc-meta-row{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.svc-meta-row .mk{font-size:10px;color:rgba(244,235,221,.35);letter-spacing:1px;white-space:nowrap;}
+.svc-meta-row .mv{font-size:12.5px;font-weight:700;color:var(--copper-light);white-space:nowrap;}
+.svc-check{
+  width:24px;height:24px;border-radius:50%;
+  border:2px solid rgba(244,235,221,.35);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .3s;font-size:12px;color:transparent;
+  flex-shrink:0;justify-self:center;
+}
+.svc-sel.selected .svc-check{background:var(--brick);border-color:var(--brick);color:#fff;}
+.svc-sel{position:relative;}
+.services-note{
+  margin-top:14px;font-size:11.5px;color:rgba(244,235,221,.4);
+  line-height:1.8;max-width:640px;
+}
+
+/* ===== CLOSING PAGE ===== */
+.closing-page{
+  position:relative;overflow:hidden;
+  background:linear-gradient(150deg,#09191E 0%,#0F2C33 50%,#0A1F26 100%) !important;
+  justify-content:flex-start;align-items:center;text-align:center;
+  padding-top:14vh;
+}
+.closing-page::before{
+  content:"";position:absolute;top:-100px;right:-100px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(193,122,79,.12),transparent 65%);
+}
+.closing-page::after{
+  content:"";position:absolute;bottom:-80px;left:-80px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(193,122,79,.08),transparent 65%);
+}
+.closing-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;max-width:640px;}
+.closing-title{font-family:Tahoma,'Vazirmatn',sans-serif;font-size:clamp(24px,3.4vw,38px);font-weight:800;color:#fff;line-height:1.4;margin-bottom:18px;}
+.closing-lead{font-family:Tahoma,'Vazirmatn',sans-serif;font-size:clamp(13.5px,1.5vw,16px);color:rgba(244,235,221,.78);line-height:1.95;margin-bottom:30px;}
+.closing-sig{
+  font-family:'Parisienne',cursive;
+  font-size:clamp(40px,5.5vw,58px);color:var(--copper-light);
+  margin-bottom:4px;line-height:1.1;
+}
+.closing-role{font-family:Tahoma,'Vazirmatn',sans-serif;font-size:12px;letter-spacing:3px;color:rgba(255,255,255,.35);margin-bottom:0;font-weight:400;}
+.closing-divider{width:60px;height:1px;background:rgba(193,122,79,.4);margin:28px auto 20px;}
+.closing-thank{
+  font-family:Tahoma,'Vazirmatn',sans-serif;
+  font-size:clamp(11px,1.2vw,13px);letter-spacing:2px;
+  color:rgba(244,235,221,.4);font-weight:400;
+}
+.closing-thank strong{color:var(--copper-light);font-weight:600;}
+
+/* ===== NAV BAR ===== */
+.nav-bar{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:16px;
+  background:rgba(10,28,34,.75);backdrop-filter:blur(16px);
+  border:1px solid rgba(244,235,221,.1);
+  padding:10px 16px;border-radius:999px;z-index:100;
+  white-space:nowrap;
+}
+.dots{display:flex;gap:7px;align-items:center;}
+.dot{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.25);cursor:pointer;
+  transition:all .3s;flex-shrink:0;
+}
+.dot.active{background:var(--copper);width:20px;border-radius:4px;}
+.btn-nav{
+  width:40px;height:40px;border-radius:50%;border:none;
+  font-family:'Vazirmatn',sans-serif;font-size:15px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;flex-shrink:0;
+}
+.btn-next{background:var(--copper);color:var(--cream-soft);}
+.btn-next:hover{background:var(--copper-light);}
+.btn-back{background:rgba(244,235,221,.12);color:var(--cream-soft);}
+.btn-back:hover{background:rgba(244,235,221,.22);}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1000px){
+  .p01-layout{grid-template-columns:1fr;gap:28px;}
+  .p01-imgs{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px;order:2;}
+  .p01-img:first-child{grid-row:1/2;grid-column:1/2;}
+  .p01-cards{order:1;}
+  .products-grid{grid-template-columns:repeat(2,1fr);}
+  .svc-sel{grid-template-columns:28px 36px 1fr;grid-template-rows:auto auto;}
+  .svc-meta{grid-column:1/-1;border-right:none;border-top:1px solid rgba(244,235,221,.1);padding-right:0;padding-top:12px;flex-direction:row;flex-wrap:wrap;}
+  .svc-meta-row{flex:1;min-width:120px;}
+}
+@media(max-width:760px){
+  .page{padding:9vh 6vw 15vh;}
+  .hero-page{padding-bottom:16vh;}
+  .hero-page h1{font-size:clamp(24px,7vw,40px);}
+  .hero-sub{font-size:clamp(13px,3.4vw,15px);}
+  .hero-meta{gap:18px;margin-top:20px;}
+  h2.title{font-size:clamp(19px,5.5vw,28px);}
+  p.lead{font-size:clamp(13px,3.6vw,15px);}
+  .strategy-block{padding:26px 20px;}
+  .strategy-block p{font-size:13px;line-height:1.9;}
+  .products-grid{grid-template-columns:1fr 1fr;gap:12px;}
+  .prod-card .prod-img-wrap{min-height:110px;}
+  .svc-sel{padding:14px 16px;}
+  .svc-body p{max-width:none;}
+  .nav-bar{padding:8px 12px;gap:10px;bottom:18px;max-width:92vw;overflow-x:auto;}
+  .btn-nav{width:36px;height:36px;font-size:13px;}
+  .closing-title{font-size:clamp(19px,5.5vw,26px);}
+  .closing-lead{margin-bottom:38px;}
+  .closing-sig{font-size:clamp(34px,9vw,46px);}
+}
+@media(max-width:480px){
+  .page{padding:8vh 5.5vw 16vh;}
+  .hero-eyebrow{font-size:10.5px;letter-spacing:2.5px;}
+  .hero-page h1{font-size:clamp(21px,7.5vw,30px);margin-bottom:14px;}
+  .hero-line{margin:16px 0;}
+  .hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;margin-top:16px;}
+  .hero-meta-item .val{font-size:12px;}
+  .eyebrow{font-size:10px;letter-spacing:2.5px;}
+  h2.title{font-size:clamp(18px,6vw,24px);}
+  .title-line{margin-bottom:20px;}
+  .p01-imgs{grid-template-rows:120px 120px;gap:8px;}
+  .intro-card{padding:18px 16px;}
+  .products-grid{grid-template-columns:1fr;}
+  .prod-card .prod-img-wrap{min-height:150px;}
+  .field-item, .q-item{padding:14px;}
+  .svc-num{font-size:20px;}
+  .svc-body h4{font-size:14px;}
+  .svc-body p{font-size:12px;}
+  .svc-price{font-size:14px !important;}
+  .nav-bar{gap:8px;padding:7px 10px;}
+  .btn-nav{width:32px;height:32px;font-size:12px;}
+  .dot{width:6px;height:6px;}
+  .dot.active{width:16px;}
+  .closing-inner{max-width:88vw;}
+  .closing-lead{font-size:12.5px;}
+}
+@media(max-width:640px){
+  .svc-sel{
+    grid-template-columns:1fr;grid-template-rows:auto;
+    display:flex;flex-direction:column;align-items:stretch;gap:12px;
+    padding:16px;
+  }
+  .svc-sel > .svc-check{
+    position:absolute;top:14px;right:14px;order:0;
+  }
+  .svc-sel > .svc-num{
+    order:1;font-size:22px;
+  }
+  .svc-sel > .svc-body{order:2;padding-right:34px;}
+  .svc-sel > .svc-body p{max-width:none;}
+  .svc-meta{
+    order:3;grid-column:auto;border-right:none;
+    border-top:1px solid rgba(244,235,221,.1);
+    padding-right:0;padding-top:12px;
+    flex-direction:column;align-items:stretch;gap:8px;
+  }
+  .svc-meta-row{justify-content:space-between;min-width:0;}
+}
+@media(max-width:380px){
+  .page{padding:7vh 5vw 17vh;}
+  .hero-meta{grid-template-columns:1fr 1fr;gap:12px 8px;}
+  .hero-meta-item .lbl{font-size:9px;}
+  .hero-meta-item .val{font-size:11px;}
+  h2.title{font-size:clamp(17px,6.5vw,22px);}
+  .intro-card h3{font-size:14.5px;}
+  .intro-card p{font-size:12px;}
+  .strategy-block{padding:20px 16px;}
+  .strategy-block h3{font-size:17px;}
+  .strategy-note{padding:14px 16px;font-size:12.5px;}
+  .p01-imgs{grid-template-columns:1fr 1fr;grid-template-rows:100px 100px;}
+  .page-counter{display:none;}
+  .nav-bar{max-width:94vw;}
+}
+@media(max-height:560px) and (orientation:landscape){
+  .page{padding:6vh 6vw 12vh;justify-content:flex-start;}
+  .hero-page{justify-content:center;padding-bottom:10vh;}
+  .nav-bar{bottom:10px;}
+  .page-counter{top:8px;}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-line"><div class="progress-fill" id="progressFill"></div></div>
+<div class="page-counter" id="pageCounter"><span class="cur" id="pageCounterCur">01</span><span class="sep">/</span><span class="tot" id="pageCounterTot">06</span></div>
+<div class="stage">
+
+<!-- ===================== PAGE 0: HERO ===================== -->
+<div class="page hero-page active" data-theme="dark">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">ARIYAHOME · DIGITAL PROPOSAL · 1405</span>
+    <h1><strong>زیرساخت دیجیتال مدرن<br>برای فروشگاه آریاهوم</strong></h1>
+    <div class="hero-line"></div>
+    <p class="hero-sub">سال‌هاست آریاهوم با کیفیت و تجربه، اعتماد مشتریانش را ساخته. حالا وقتشه که این اعتماد در فضای آنلاین هم دیده بشه. این پروپوزال مسیر رسیدن آریاهوم از یک فروشگاه شناخته‌شده به یک برند دیجیتال قابل‌اعتماد رو نشون می‌ده.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><div class="lbl">کارفرما</div><div class="val">رضا احمدی · آریاهوم</div></div>
+      <div class="hero-meta-item"><div class="lbl">حوزه</div><div class="val">لوازم آشپزخانه</div></div>
+      <div class="hero-meta-item"><div class="lbl">تاریخ</div><div class="val">تیر ۱۴۰۵</div></div>
+      <div class="hero-meta-item"><div class="lbl">تهیه‌کننده</div><div class="val">آتنا کرمی</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 01: WHY ===================== -->
+<div class="page page-dark" data-theme="dark">
+  <span class="eyebrow">01 — چرا این پروپوزال</span>
+  <h2 class="title"><strong>قبل از هرچیز،</strong> باید بدونیم<br>قراره چه چیزی بسازیم</h2>
+  <div class="title-line"></div>
+  <div class="p01-layout">
+    <div class="p01-cards">
+      <div class="intro-card">
+        <span class="num">01</span>
+        <h3>نقشه رشد دیجیتال</h3>
+        <p>مسیر مشخصی که نشون می‌ده آریاهوم از کجا شروع می‌کنه و در 12 ماه آینده دقیقاً به کجا می‌رسه — نه شعار، نه حدس.</p>
+      </div>
+      <div class="intro-card">
+        <span class="num">02</span>
+        <h3>معماری تجربه مشتری</h3>
+        <p>طراحی مسیری که مشتری از لحظه‌ی جستجو در گوگل تا خرید نهایی، حس راحتی و اعتماد داشته باشه.</p>
+      </div>
+      <div class="intro-card">
+        <span class="num">03</span>
+        <h3>تحلیل برند و رقبا</h3>
+        <p>بررسی جایگاه آریاهوم در بازار دیجیتال، شناخت رقبای آنلاین و پیدا کردن فرصت‌هایی که رقبا هنوز ندیدن.</p>
+      </div>
+    </div>
+    <div class="p01-imgs">
+      <div class="p01-img" data-label="لوازم برقی آشپزخانه">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYW14bXgmOzI0iDZhIdvMM6IY78h9pshzZbIVQYlPanB3FNIRpqi9B4X2z&s=10" alt="">
+      </div>
+      <div class="p01-img" data-label="اسپرسوساز و قهوه">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrhEVg8G14dTfdJ5eG37akimXSslbTM3H0RB0Ij7UZxy6eyZC3fnm2wMU&s=10" alt="">
+      </div>
+      <div class="p01-img" data-label="ظروف و لوازم پخت">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDxROY9AdRO1fS9r4sxHN74yQA2Cn7ALbUHMqU7gv3bWKiBaZ9efmhsHlr&s=10" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 02: STRATEGY ===================== -->
+<div class="page page-light" data-theme="light">
+  <span class="eyebrow" style="color:var(--teal-mid)">02 — پیش از طراحی سایت</span>
+  <h2 class="title" style="color:var(--ink)"><strong>قبل از ورود به طراحی،</strong><br>جایگاه دیجیتال آریاهوم باید مشخص بشه</h2>
+  <div class="title-line"></div>
+  <div class="strategy-wrap">
+    <div class="strategy-block">
+      <h3><strong>سند استراتژی</strong> یعنی چی؟ و چرا ما روش تأکید داریم؟</h3>
+      <p>
+        خیلی از کسب‌وکارها مستقیم می‌رن سراغ طراحی سایت — بعد از چند ماه می‌فهمن که سایت رتبه نمی‌گیره، مشتری نمیاد، و پول‌شون دود شده. دلیلش اینه که بدون نقشه ساختن، مثل رانندگی بدون GPS توی یه شهر ناآشناست.
+        <br><br>
+        سند استراتژی، قبل از هر اقدامی سه چیز رو مشخص می‌کنه: مشتریان آریاهوم دقیقاً داخل گوگل دنبال چه عباراتی می‌گردن، رقبا کجا قوی‌ترن و کجا ضعیف، و کدوم دسته‌های محصول (مثل اسپرسوساز یا یخچال فریزر) بیشترین شانس دیده‌شدن رو دارن.
+        <br><br>
+        نتیجه؟ سایتی که از همون روز اول برای فروش ساخته می‌شه — نه سایتی که بعداً بخوایم دوباره کارش کنیم.
+      </p>
+      <span class="tag">پایه‌ی اجرای تمام مراحل بعدی</span>
+    </div>
+    <div class="strategy-note">
+      💡 هر برندی که الان توی گوگل دیده می‌شه، یه بار این مسیر رو طی کرده. آریاهوم می‌تونه از همون اول درست شروع کنه.
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 03: PRODUCTS SHOWCASE ===================== -->
+<div class="page page-dark products-page" data-theme="dark">
+  <span class="eyebrow">03 — محصولات آریاهوم</span>
+  <h2 class="title page-title"><strong>بخشی از محصولات</strong><br>آریا هوم</h2>
+  <div class="title-line"></div>
+  <p class="products-intro">از لوازم برقی روزمره تا ست‌های کامل ظروف پخت‌وپز، آریا هوم طیف گسترده‌ای از نیازهای آشپزخانه رو در یک‌جا پوشش می‌ده — همون تنوعی که قراره پایه‌ی دسته‌بندی سایت هم بشه.</p>
+  <div class="products-grid">
+    <div class="prod-card">
+      <div class="prod-img-wrap"><img src="https://images.unsplash.com/photo-1636412191749-53d84f5f3eb0?q=80&w=500&auto=format&fit=crop" alt="ست چاقو و کفگیر"></div>
+      <div class="prod-card-info">
+        <h4>ست چاقو و کفگیر</h4>
+        <p>سرویس کامل چاقوی آشپزخانه به همراه کفگیر و ابزار پخت‌وپز، برای کارهای روزمره تا حرفه‌ای.</p>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img-wrap"><img src="https://images.unsplash.com/photo-1556185781-a47769abb7ee?q=80&w=500&auto=format&fit=crop" alt="ماشین ظرفشویی"></div>
+      <div class="prod-card-info">
+        <h4>ماشین ظرفشویی</h4>
+        <p>ماشین‌های ظرفشویی با ظرفیت‌های مختلف، مناسب آشپزخانه‌های کوچک تا خانواده‌های پرجمعیت.</p>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img-wrap"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYB30Yv_eol7yaCKYdRc_FxtafkNdo9mtWAH6nmKeaydDgw_r94iX88gE&s=10" alt="ست قابلمه"></div>
+      <div class="prod-card-info">
+        <h4>ست قابلمه</h4>
+        <p>ست‌های قابلمه گرانیتی و استیل، مناسب پخت‌وپز روزمره تا مهمانی‌های بزرگ.</p>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img-wrap"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb3xhS45zRc2nmOl61NB0jJqYgnSgwnqR8UErWBnDHPre38OlprhLi970&s=10" alt="مایکروویو و فر"></div>
+      <div class="prod-card-info">
+        <h4>مایکروویو و فر</h4>
+        <p>مایکروویوهای روزمره و فرهای برقی خانگی، برای پخت و گرم‌کردن سریع‌تر در آشپزخانه.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 04: SERVICES SELECTION ===================== -->
+<div class="page page-dark services-page" data-theme="dark">
+  <span class="eyebrow">04 — خدمات پیشنهادی</span>
+  <h2 class="title"><strong>خدماتی که می‌خواید</strong><br>انتخاب کنید</h2>
+  <div class="title-line"></div>
+  <p class="services-intro">هر بسته‌ای که مناسب آریاهوم می‌دونید رو انتخاب کنید — انتخاب‌ها ذخیره می‌شن.</p>
+  <div class="services-list-sel">
+
+    <div class="svc-sel" onclick="toggleService(this,'svc1')" data-id="svc1">
+      <div class="svc-check">✓</div>
+      <div class="svc-num">01</div>
+      <div class="svc-body">
+        <h4>سند استراتژی سئو</h4>
+        <p>تحلیل رقبا، تحقیق عبارات کلیدی، پرسونای مشتری و نقشه محتوا</p>
+      </div>
+      <div class="svc-meta">
+        <div class="svc-meta-row"><span class="mk">زمان</span><span class="mv">۲ هفته</span></div>
+        <div class="svc-meta-row"><span class="mk">خروجی</span><span class="mv">سند کامل PDF</span></div>
+        <div class="svc-meta-row"><span class="mk">هزینه</span><span class="mv">15,000,000 T</span></div>
+      </div>
+    </div>
+
+    <div class="svc-sel" onclick="toggleService(this,'svc2')" data-id="svc2">
+      <div class="svc-check">✓</div>
+      <div class="svc-num">02</div>
+      <div class="svc-body">
+        <h4>طراحی سایت فروشگاهی (B2C)</h4>
+        <p>سایت با خرید آنلاین، درگاه پرداخت و بهینه‌سازی سئو از ابتدا</p>
+      </div>
+      <div class="svc-meta">
+        <div class="svc-meta-row"><span class="mk">زمان</span><span class="mv">4 تا 6 هفته</span></div>
+        <div class="svc-meta-row"><span class="mk">خروجی</span><span class="mv">سایت فروشگاهی</span></div>
+        <div class="svc-meta-row"><span class="mk">هزینه</span><span class="mv">55,000,000 T</span></div>
+      </div>
+    </div>
+
+    <div class="svc-sel" onclick="toggleService(this,'svc3')" data-id="svc3">
+      <div class="svc-check">✓</div>
+      <div class="svc-num">03</div>
+      <div class="svc-body">
+        <h4>طراحی سایت شرکتی (B2B)</h4>
+        <p>کاتالوگ، استعلام قیمت و مدیریت سفارش برای فروش عمده</p>
+      </div>
+      <div class="svc-meta">
+        <div class="svc-meta-row"><span class="mk">زمان</span><span class="mv">3 تا 4 هفته</span></div>
+        <div class="svc-meta-row"><span class="mk">خروجی</span><span class="mv">پنل شرکتی</span></div>
+        <div class="svc-meta-row"><span class="mk">هزینه</span><span class="mv">35,000,000 T</span></div>
+      </div>
+    </div>
+
+    <div class="svc-sel" onclick="toggleService(this,'svc4')" data-id="svc4">
+      <div class="svc-check">✓</div>
+      <div class="svc-num">04</div>
+      <div class="svc-body">
+        <h4>سئو آنگوئینگ ماهانه</h4>
+        <p>بهینه‌سازی مستمر، لینک‌سازی و گزارش ماهانه رتبه کلمات</p>
+      </div>
+      <div class="svc-meta">
+        <div class="svc-meta-row"><span class="mk">زمان</span><span class="mv">قرارداد 6 ماهه</span></div>
+        <div class="svc-meta-row"><span class="mk">خروجی</span><span class="mv">گزارش ماهانه</span></div>
+        <div class="svc-meta-row"><span class="mk">هزینه</span><span class="mv">40,000,000 T</span></div>
+      </div>
+    </div>
+
+    <div class="svc-sel" onclick="toggleService(this,'svc5')" data-id="svc5">
+      <div class="svc-check">✓</div>
+      <div class="svc-num">05</div>
+      <div class="svc-body">
+        <h4>تولید محتوا و اپلیکیشن موبایل</h4>
+        <p>محتوای تخصصی ماهانه + اپلیکیشن اندروید و iOS در فاز رشد</p>
+      </div>
+      <div class="svc-meta">
+        <div class="svc-meta-row"><span class="mk">زمان</span><span class="mv">8 تا 12 هفته</span></div>
+        <div class="svc-meta-row"><span class="mk">خروجی</span><span class="mv">اپ + محتوا</span></div>
+        <div class="svc-meta-row"><span class="mk">هزینه</span><span class="mv">92,000,000 T</span></div>
+      </div>
+    </div>
+
+  </div>
+  <p class="services-note">* هزینه‌های نهایی پس از تدوین سند استراتژی و بررسی دقیق نیازها اعلام می‌شود.</p>
+</div>
+
+<!-- ===================== PAGE 05: CLOSING ===================== -->
+<div class="page page-dark closing-page" data-theme="dark">
+  <div class="closing-inner">
+    <div class="closing-title">آماده‌ایم مسیر آریا هوم رو دیجیتال کنیم</div>
+    <div class="closing-lead">اولین قدم، همون سند استراتژیه. هر سوالی درباره‌ی این پروپوزال دارید، خوشحال می‌شم توضیح بدم.</div>
+    <div class="closing-sig">Atena Karami</div>
+    <div class="closing-role">SEO & DIGITAL STRATEGY SPECIALIST</div>
+    <div class="closing-divider"></div>
+    <div class="closing-thank">THANK YOU FOR BEING WITH US · <strong>AT - Aria Home</strong></div>
+  </div>
+</div>
+
+</div><!-- end stage -->
+
+<!-- ===================== NAV BAR ===================== -->
+<div class="nav-bar" id="navBar">
+  <button class="btn-nav btn-back" id="backBtn" onclick="goTo(current-1)">→</button>
+  <div class="dots" id="dots"></div>
+  <button class="btn-nav btn-next" id="nextBtn" onclick="goTo(current+1)">←</button>
+</div>
+
+<script>
+const pages = document.querySelectorAll('.page');
+const dotsWrap = document.getElementById('dots');
+let current = 0;
+
+// Build dots
+pages.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.addEventListener('click',()=>goTo(i));
+  dotsWrap.appendChild(d);
+});
+const dots=document.querySelectorAll('.dot');
+
+function pad2(n){ return n<10 ? '0'+n : ''+n; }
+
+document.getElementById('pageCounterTot').textContent = pad2(pages.length);
+
+function goTo(i){
+  if(i<0||i>=pages.length)return;
+  pages[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current=i;
+  pages[current].classList.add('active');
+  dots[current].classList.add('active');
+  document.getElementById('backBtn').style.opacity=current===0?'0.3':'1';
+  document.getElementById('nextBtn').style.opacity=current===pages.length-1?'0.3':'1';
+  document.getElementById('progressFill').style.width=((current+1)/pages.length*100)+'%';
+  document.getElementById('pageCounterCur').textContent = pad2(current+1);
+  document.body.setAttribute('data-theme-active', pages[current].getAttribute('data-theme'));
+}
+
+// Keyboard
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft')goTo(current+1);
+  if(e.key==='ArrowRight')goTo(current-1);
+});
+
+// Touch swipe
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=tx-e.changedTouches[0].clientX;
+  if(Math.abs(dx)>50)goTo(dx>0?current+1:current-1);
+});
+
+// Services selection with localStorage
+function toggleService(el,id){
+  el.classList.toggle('selected');
+  saveSelections();
+}
+function saveSelections(){
+  const sel=[];
+  document.querySelectorAll('.svc-sel.selected').forEach(el=>sel.push(el.dataset.id));
+  try{localStorage.setItem('ariya_services',JSON.stringify(sel));}catch(e){}
+}
+function loadSelections(){
+  try{
+    const saved=localStorage.getItem('ariya_services');
+    if(!saved)return;
+    const sel=JSON.parse(saved);
+    sel.forEach(id=>{
+      const el=document.querySelector(`[data-id="${id}"]`);
+      if(el)el.classList.add('selected');
+    });
+  }catch(e){}
+}
+loadSelections();
+goTo(0);
+</script>
+</body>
+</html>
